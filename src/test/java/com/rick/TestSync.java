@@ -118,6 +118,16 @@ public class TestSync {
 		});
 		
 	}
+	@Test
+	public void testListObservable() throws InterruptedException {
+		List<String> data = Arrays.asList("Hola","Mundo");
+		Flowable.fromIterable(data)
+			.observeOn(Schedulers.computation())
+			.subscribeOn(Schedulers.io())
+			.subscribe(System.out::println)
+			.wait();
+			
+	}
 	
 	@Test
 	public void callableFlowable() {
@@ -137,7 +147,7 @@ public class TestSync {
 	
 	public static void main(String args[]) throws InterruptedException {
 		new TestSync().flowableAsyncBasic();
-		Thread.currentThread().sleep(10000);
+		
 	}
 	
 }
