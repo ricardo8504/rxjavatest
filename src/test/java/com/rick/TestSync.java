@@ -7,6 +7,7 @@ import static org.junit.matchers.JUnitMatchers.*;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
@@ -89,12 +90,20 @@ public class TestSync {
 	        return result;
 	}
 	
-	
-		
+	@Test
+	public void testListObservable() throws InterruptedException {
+		List<String> data = Arrays.asList("Hola","Mundo");
+		Flowable.fromIterable(data)
+			.observeOn(Schedulers.computation())
+			.subscribeOn(Schedulers.io())
+			.subscribe(System.out::println)
+			.wait();
+			
+	}
 	
 	public static void main(String args[]) throws InterruptedException {
 		new TestSync().flowableAsyncBasic();
-		Thread.currentThread().sleep(10000);
+		
 	}
 	
 }
